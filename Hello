@@ -2,8 +2,8 @@ package Practice1
 
 import org.apache.spark.sql.SparkSession
 
-case class Sales(transactionId:Int,customerId:Int,itemId:Int,amountPaid:Double)
-case class Customers(customerId:Int,customerName:String)
+case class Sales(transactionId:Int,customerId:Int,itemId:Int,amountPaid:Double)//SalesDF
+case class Customers(customerId:Int,customerName:String)//CustomerDF
 
 object SalesDatasets {
 
