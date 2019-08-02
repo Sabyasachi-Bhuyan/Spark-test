@@ -1,6 +1,6 @@
 package Practice1
 
-import org.apache.spark.sql.SparkSession//git change//Jenkin changes
+import org.apache.spark.sql.SparkSession//Jenkin changes//sbt added
 
 case class Sales(transactionId:Int,customerId:Int,itemId:Int,amountPaid:Double)//SalesDF
 case class Customers(customerId:Int,customerName:String)//CustomerDF-google cloud
@@ -13,27 +13,31 @@ object SalesDatasets {
 
     import spark.implicits._
 
-    val salesDS = spark.read.textFile(args(0))
+    val l = List(1,2,3,4)
+    val rdd =spark.makeRDD(l)
+    rdd.foreach(println)
+
+    //val salesDS = spark.read.textFile(args(0))
 
     //sales.filter(x => x.startsWith("transactionId")).map(x => x.split(",")).map( x=> (x(0),x(1),x(2),x(3)))
 
-    val salesDF = spark.read.option("header","true").option("inferSchema","true").csv(args(0))
-    val custDF = spark.read.option("header","true").option("inferSchema","true").csv(args(1))
+    //val salesDF = spark.read.option("header","true").option("inferSchema","true").csv(args(0))
+    //val custDF = spark.read.option("header","true").option("inferSchema","true").csv(args(1))
 
-    val salesDS1 = salesDF.as[Sales]
-    val custDS1 = custDF.as[Customers]
+    //val salesDS1 = salesDF.as[Sales]
+    //val custDS1 = custDF.as[Customers]
 
-    salesDS1.createOrReplaceTempView("sales")
-    custDS1.createOrReplaceTempView("cust")
+    //salesDS1.createOrReplaceTempView("sales")
+    //custDS1.createOrReplaceTempView("cust")
 
     //salesDS1.show()
     //salesDF.printSchema()
     //salesDS1.printSchema()
 
 
-    salesDS1.filter(x => x.amountPaid>1000).select("transactionId","customerId","amountPaid").drop("transactionId").show()
+    //salesDS1.filter(x => x.amountPaid>1000).select("transactionId","customerId","amountPaid").drop("transactionId").show()
 
-    spark.sql("select * from sales s,cust c where s.customerId=c.customerId and s.amountPaid > 1000").show()
+    //spark.sql("select * from sales s,cust c where s.customerId=c.customerId and s.amountPaid > 1000").show()
   }
 
 }
